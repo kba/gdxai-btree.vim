@@ -1,13 +1,15 @@
 syn match btreeTask "^.*$" contains=btreeTaskName,btreeComment,btreeTaskAttribute
+
 syn match btreeTaskName "^\s*[^ ]\+" contained contains=btreeRoot,btreeBranch,btreeBoolean,
+
 syn match btreeTaskAttribute /\<[^ ]\+/ contained contains=btreeTaskAttributeName,btreeTaskAttributeValue
-syn match btreeTaskAttributeName /\([^: ]*\):\@=/ contained
-syn match btreeTaskAttributeValue /:\@<=[^ :]*\>/ contained
+syn match btreeTaskAttributeName /[^: ]*\ze\:/ contained
+syn match btreeTaskAttributeValue /:\@<=[^ ]*\>/ contained
 
 syn region btreeImport start=/^\s*import/ end=/$/ contains=btreeImportKeyWord,btreeImportAlias,btreeImportPackage
 syn match btreeImportKeyWord "^\s*import" contained
 syn match btreeImportAlias "[^ :]\+:" contained
-syn region btreeImportPackage start=/\v"/ end=/\v"/ contained
+syn region btreeImportPackage start=/\v"\zs/ end=/\ze\v"/ contained
 
 syn match btreeComment	"#.*$" display contains=@Spell
 
